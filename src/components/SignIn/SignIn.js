@@ -25,13 +25,6 @@ function SignIn() {
   const onSubmit = (e) => {
     e.preventDefault();
     const { email, password } = form;
-
-    dispatch(
-      SignIn({
-        email,
-        password,
-      })
-    );
   };
 
   return (

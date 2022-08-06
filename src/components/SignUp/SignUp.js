@@ -5,8 +5,10 @@ import "../LoginPage/LoginPage.css";
 
 function SignUp() {
   const dispatch = useDispatch();
-  const { form } = useSelector(({ auth }) => ({
+  const { form, auth, authError } = useSelector(({ auth }) => ({
     form: auth.SignUp,
+    auth: auth.auth,
+    authError: auth.authError,
   }));
 
   const onChange = (e) => {
@@ -22,6 +24,22 @@ function SignUp() {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const { email, fullname, nickname, password } = form;
+
+    if ([email, fullname, nickname, password].includes("")) {
+      // setError
+      return;
+    }
+
+    dispatch(
+      SignUp({
+        email,
+        fullname,
+        nickname,
+        password,
+      })
+    );
   };
 
   return (
