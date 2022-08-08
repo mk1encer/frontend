@@ -9,7 +9,7 @@ const customConfig = {
 export const SignIn = ({ email, password }) => {
   console.log("Signin");
   client.post(
-    "auth-service/login",
+    "signin",
     JSON.stringify({
       email,
       password,
@@ -21,7 +21,7 @@ export const SignIn = ({ email, password }) => {
 export const SignUp = ({ email, fullname, username, password }) => {
   console.log("signup");
   client.post(
-    "./auth-service/register",
+    "./signup",
     JSON.stringify({
       email,
       fullname,
