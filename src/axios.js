@@ -18,14 +18,14 @@ export const SignIn = ({ email, password }) => {
   );
 };
 
-export const SignUp = ({ email, fullname, username, password }) => {
+export const SignUp = ({ email, name, nickname, password }) => {
   console.log("signup");
   client.post(
     "./signup",
     JSON.stringify({
       email,
-      fullname,
-      username,
+      name,
+      nickname,
       password,
     }),
     customConfig

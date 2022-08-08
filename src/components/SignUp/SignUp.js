@@ -25,9 +25,9 @@ const SignUp = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const { email, fullname, nickname, password } = form;
+    const { email, name, nickname, password } = form;
 
-    if ([email, fullname, nickname, password].includes("")) {
+    if ([email, name, nickname, password].includes("")) {
       // 빈칸 있으면 오류
       return;
     }
@@ -35,13 +35,11 @@ const SignUp = () => {
     dispatch(
       signup({
         email,
-        fullname,
+        name,
         nickname,
         password,
       })
     );
-
-    console.log("hello");
   };
 
   return (
@@ -59,17 +57,17 @@ const SignUp = () => {
           className="loginpage_textbox"
           type="text"
           placeholder="Full Name"
-          name="fullname"
+          name="name"
           onChange={onChange}
-          value={form.fullname}
+          value={form.name}
         />
         <input
           className="loginpage_textbox"
           type="text"
-          placeholder="Username"
-          name="username"
+          placeholder="Nickname"
+          name="nickname"
           onChange={onChange}
-          value={form.username}
+          value={form.nickname}
         />
         <input
           className="loginpage_textbox"

@@ -27,10 +27,10 @@ export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
 export const signup = createAction(
   SIGNUP,
-  ({ email, fullname, username, password }) => ({
+  ({ email, name, nickname, password }) => ({
     email,
-    fullname,
-    username,
+    name,
+    nickname,
     password,
   })
 );
@@ -51,14 +51,15 @@ export function* authSaga() {
 const initialState = {
   SignUp: {
     email: "",
-    fullname: "",
-    username: "",
+    name: "",
+    nickname: "",
     password: "",
   },
   SignIn: {
     email: "",
     password: "",
   },
+  headers: null,
   Auth: null,
   AuthError: null,
 };
@@ -73,10 +74,11 @@ const Auth = handleActions(
       ...state,
       [form]: initialState[form],
     }),
-    [SIGNIN_SUCCESS]: (state, { payload: auth }) => ({
+    [SIGNIN_SUCCESS]: (state, { payload: auth, headers: headers }) => ({
       ...state,
       AuthError: null,
       Auth,
+      headers,
     }),
     [SIGNIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
