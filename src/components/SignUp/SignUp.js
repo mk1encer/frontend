@@ -1,15 +1,26 @@
-import { changeField, signup } from "../Auth";
-import React from "react";
+import {
+  changeField,
+  initializeForm,
+  signup,
+  checkEmail,
+  checkNickname,
+} from "../Auth";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../LoginPage/LoginPage.css";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const { form, auth, authError } = useSelector(({ auth }) => ({
-    form: auth.SignUp,
-    auth: auth.auth,
-    authError: auth.authError,
-  }));
+  const [error, setError] = useState(null);
+  const { form, auth, authError, checkedEmail, checkedNickname } = useSelector(
+    ({ auth }) => ({
+      form: auth.SignUp,
+      auth: auth.auth,
+      authError: auth.authError,
+      checkedEmail: auth.checkedEmail,
+      checkedNickname: auth.checkedNickname,
+    })
+  );
 
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -28,19 +39,60 @@ const SignUp = () => {
     const { email, name, nickname, password } = form;
 
     if ([email, name, nickname, password].includes("")) {
-      // 빈칸 있으면 오류
+      setError("모든 칸을 채워주세요");
+      console.log("모든 칸을 채워주세요");
+
       return;
     }
 
-    dispatch(
-      signup({
-        email,
-        name,
-        nickname,
-        password,
-      })
-    );
+    if (checkedEmail && checkedNickname) {
+      dispatch(
+        signup({
+          email,
+          name,
+          nickname,
+          password,
+        })
+      );
+    }
+
+    // dispatch(
+    //   signup({
+    //     email,
+    //     name,
+    //     nickname,
+    //     password,
+    //   })
+    // );
   };
+
+  useEffect(() => {
+    dispatch(initializeForm("signup"));
+  }, [dispatch]);
+
+  useEffect(() => {
+    const { email } = form;
+
+    dispatch(checkEmail(email));
+
+    if (!checkedEmail) {
+      setError("이메일 중복!");
+
+      return;
+    }
+  }, [dispatch, checkedEmail, form]);
+
+  useEffect(() => {
+    const { nickname } = form;
+
+    dispatch(checkNickname(nickname));
+
+    if (!checkedNickname) {
+      setError("닉네임 중복!");
+
+      return;
+    }
+  }, [dispatch, checkedNickname, form]);
 
   return (
     <div>

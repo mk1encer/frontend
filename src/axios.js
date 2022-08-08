@@ -33,4 +33,20 @@ export const SignUp = ({ email, name, nickname, password }) => {
 };
 
 export const getUser = ({ userId }) =>
-  client.getUser("./auth-service/:userId/getUser", { userId });
+  client.get(`/${userId}/getUser`, {
+    headers: {
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+    },
+  });
+
+export const check = (userId) =>
+  client.get(`/${userId}/check`, {
+    headers: {
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+    },
+  });
+
+export const checkEmail = (email) =>
+  client.get(`./signup/email/${JSON.stringify({ email })}`);
+export const checkNickname = (nickname) =>
+  client.get(`./signup/nickname/${JSON.stringify({ nickname })}`);

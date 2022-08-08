@@ -9,6 +9,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer, { rootSaga } from "./components";
 import { BrowserRouter } from "react-router-dom";
 import createSagaMiddleware from "@redux-saga/core";
+import { check, saveUser } from "./components/user";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -17,7 +18,26 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
+function loadUser() {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      return;
+    }
+
+    store.dispatch(saveUser(user));
+
+    const { userId } = user;
+
+    store.dispatch(check(userId));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 sagaMiddleware.run(rootSaga);
+loadUser();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
