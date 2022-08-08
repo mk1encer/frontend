@@ -1,14 +1,13 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import client from "../client";
 import { takeLatest } from "@redux-saga/core/effects";
 import createRequestSaga, {
   createRequestActionTypes,
 } from "./createRequestSaga";
-import * as authAPI from "./Auth";
+import * as authAPI from "../axios";
 
-const CHANGE_FIELD = "auth/CHANGE_FIELD";
-const INITIALIZE_FORM = "auth/INITIALIZE_FORM";
+const CHANGE_FIELD = "Auth/CHANGE_FIELD";
+const INITIALIZE_FORM = "Auth/INITIALIZE_FORM";
 
 const [SIGNIN, SIGNIN_SUCCESS, SIGNIN_FAILURE] =
   createRequestActionTypes("auth/SIGNIN");
@@ -26,7 +25,7 @@ export const changeField = createAction(
 
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
-export const SignUp = createAction(
+export const signup = createAction(
   SIGNUP,
   ({ email, fullname, username, password }) => ({
     email,
@@ -36,7 +35,7 @@ export const SignUp = createAction(
   })
 );
 
-export const SignIn = createAction(SIGNIN, ({ email, password }) => ({
+export const signin = createAction(SIGNIN, ({ email, password }) => ({
   email,
   password,
 }));

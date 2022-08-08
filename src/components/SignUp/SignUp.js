@@ -1,9 +1,9 @@
-import { changeField } from "../Auth";
+import { changeField, signup } from "../Auth";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../LoginPage/LoginPage.css";
 
-function SignUp() {
+const SignUp = () => {
   const dispatch = useDispatch();
   const { form, auth, authError } = useSelector(({ auth }) => ({
     form: auth.SignUp,
@@ -28,18 +28,20 @@ function SignUp() {
     const { email, fullname, nickname, password } = form;
 
     if ([email, fullname, nickname, password].includes("")) {
-      // setError
+      // 빈칸 있으면 오류
       return;
     }
 
     dispatch(
-      SignUp({
+      signup({
         email,
         fullname,
         nickname,
         password,
       })
     );
+
+    console.log("hello");
   };
 
   return (
@@ -81,6 +83,6 @@ function SignUp() {
       </form>
     </div>
   );
-}
+};
 
 export default SignUp;
