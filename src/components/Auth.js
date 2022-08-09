@@ -15,9 +15,9 @@ const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE] =
   createRequestActionTypes("auth/SIGNUP");
 const [INFO, INFO_SUCCESS, INFO_FAILURE] =
   createRequestActionTypes("auth/INFO");
-const [CHECK_NICKNAME, CHECK_NICKNAME_SUCCESS, CHECK_NICKNAME_FAILURE] =
+export const [CHECK_NICKNAME, CHECK_NICKNAME_SUCCESS, CHECK_NICKNAME_FAILURE] =
   createRequestActionTypes("auth/CHECK_NICKNAME");
-const [CHECK_EMAIL, CHECK_EMAIL_SUCCESS, CHECK_EMAIL_FAILURE] =
+export const [CHECK_EMAIL, CHECK_EMAIL_SUCCESS, CHECK_EMAIL_FAILURE] =
   createRequestActionTypes("auth/CHECK_EMAIL");
 
 export const changeField = createAction(

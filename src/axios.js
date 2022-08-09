@@ -46,7 +46,7 @@ export const check = (userId) =>
     },
   });
 
-export const checkEmail = (email) =>
-  client.get(`./signup/email/${JSON.stringify({ email })}`);
-export const checkNickname = (nickname) =>
-  client.get(`./signup/nickname/${JSON.stringify({ nickname })}`);
+export const checkEmail = ({ email }) =>
+  client.post("/signup/email", JSON.stringify({ email }), customConfig);
+export const checkNickname = ({ nickname }) =>
+  client.post("/signup/nickname", JSON.stringify({ nickname }), customConfig);
